@@ -1,4 +1,4 @@
-import React, { useState ,useContext } from 'react'
+import React, { useState ,useContext  , useEffect} from 'react'
 import ThemeContext from '../context/themeContext'
 interface CounterProps{
     text: string,
@@ -6,7 +6,6 @@ interface CounterProps{
 }
 const Counter = ({text , children}: CounterProps) => {
     const [count , setCount] = useState<number>(0)
-
     const {switchTheme} = useContext(ThemeContext)
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         setCount(count+1);
@@ -17,6 +16,9 @@ const Counter = ({text , children}: CounterProps) => {
         console.log(e)
         switchTheme()
     }
+    useEffect(() => {
+        document.body.addEventListener('click',()=> console.log(`dispatch body event`),true)
+    },[])
     return(
         <div onClick={handleClick}>
             {text} count is {count}
